@@ -1,0 +1,1 @@
+web: npm install && python dummy_app/server/server.py

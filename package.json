@@ -1,0 +1,47 @@
+{
+  "name": "tsatet-ota",
+  "version": "1.0.0",
+  "description": "Flask + React => Continous Deployment on Heroku",
+  "main": "index.jsx",
+  "keywords": [
+    "flask",
+    "react",
+    "webpack"
+  ],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "babel-core": "^6.26.3",
+    "babel-loader": "^7.1.4",
+    "babel-preset-latest": "^6.24.1",
+    "babel-preset-react": "^6.24.1",
+    "prop-types": "^15.6.1",
+    "react": "^16.3.2",
+    "react-bootstrap": "^0.31.5",
+    "react-dom": "^16.3.2",
+    "webpack": "^3.11.0"
+  },
+  "babel": {
+    "presets": [
+      "latest",
+      "react"
+    ]
+  },
+  "engines": {
+    "node": "8.9.1"
+  },
+  "scripts": {
+    "build": "webpack -p --progress --config webpack.config.js",
+    "dev-build": "webpack --progress -d --config webpack.config.js",
+    "watch": "webpack --progress -d --config webpack.config.js --watch",
+    "postinstall": "npm run build"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/CamiloGarciaLaRotta/fullstack_app_boilerplate.git"
+  },
+  "bugs": {
+    "url": "https://github.com/CamiloGarciaLaRotta/fullstack_app_boilerplate/issues"
+  },
+  "homepage": "https://github.com/CamiloGarciaLaRotta/fullstack_app_boilerplate#readme"
+}
