@@ -1,6 +1,7 @@
 from flask import Flask, render_template, request, jsonify
 import os
 
+
 APP_STAGE = os.environ['APP_STAGE']
 
 # static folder contains the js/css/img files to be distributed to client
@@ -19,6 +20,6 @@ def data():
 
 
 if __name__ == '__main__':
-    app.debug = APP_STAGE == 'DEVELOPMENT'
+    app.debug = APP_STAGE == "Development"
     port = int(os.environ.get('PORT', 5000))
     app.run(host='0.0.0.0', port=port)
