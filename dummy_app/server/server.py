@@ -1,7 +1,7 @@
 from flask import Flask, render_template, request, jsonify
 import os
 from bson.json_util import dumps
-from pydb import MongoClient
+from pymongo import MongoClient
 
 
 # static folder contains the js/css/img files to be distributed to client
