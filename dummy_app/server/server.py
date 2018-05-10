@@ -30,6 +30,10 @@ def data():
     resp = 'Server ACKs : {}'.format(request.args.get('data'))
     return jsonify({'response': resp})
 
+#@app.route('/tags/<tag>/citations', methods=['GET'])
+#def get_citations_for_tag():
+#    citations=queryServer(tag)
+#    return ({'response': resp})
 
 if __name__ == '__main__':
     app.debug = APP_STAGE == "Development"
