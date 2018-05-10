@@ -9,15 +9,14 @@ from pymongo import MongoClient
 # template folder contains the html templates to be rendered by Flask
 app = Flask(__name__, static_folder='../static/dist', template_folder='../static')
 
-app.config["MONGO_DBNAME"] = "tsatetota_db"
-mongo = PyMongo(app, config_prefix='MONGO')
-APP_URL = "http:#127.0.0.1:5000"
+#app.config["MONGO_DBNAME"] = "tsatetota_db"
+#mongo = PyMongo(app, config_prefix='MONGO')
+#APP_URL = "http:#127.0.0.1:5000"
 uri = os.environ.get('MONGOLAB_URI')
-if not uri:
-    MONGO_URL = "mongodb:#localhost:27017/rest";
+#if not uri:
+#    MONGO_URL = "mongodb:#localhost:27017/rest";
 client = MongoClient(uri)
 db = client['heroku_21cnp0sm']
-db.my_collection.find()
 
 APP_STAGE = os.environ['APP_STAGE']
 
