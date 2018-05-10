@@ -10,7 +10,7 @@ from pymongo import MongoClient
 app = Flask(__name__, static_folder='../static/dist', template_folder='../static')
 
 #app.config["MONGO_DBNAME"] = "tsatetota_db"
-#mongo = PyMongo(app, config_prefix='MONGO')
+mongo = PyMongo(app, config_prefix='MONGO')
 #APP_URL = "http:#127.0.0.1:5000"
 uri = os.environ.get('MONGOLAB_URI')
 #if not uri:
