@@ -1,17 +1,24 @@
 from flask import Flask, render_template, request, jsonify
 import os
-import pymongo
+from flask_pymongo import PyMongo
 from pymongo import MongoClient
 
-uri = os.environ.get('MONGO_URI')
-client = MongoClient(uri)
-db = client.get_default_database()
-
-APP_STAGE = os.environ['APP_STAGE']
 
 # static folder contains the js/css/img files to be distributed to client
 # template folder contains the html templates to be rendered by Flask
 app = Flask(__name__, static_folder='../static/dist', template_folder='../static')
+
+app.config["MONGO_DBNAME"] = "tsatetota_db"
+mongo = PyMongo(app, config_prefix='MONGO')
+APP_URL = "http://127.0.0.1:5000"
+uri = os.environ.get('MONGO_URI')
+if not uri:
+    MONGO_URL = "mongodb://localhost:27017/rest";
+client = MongoClient(uri)
+db = client['heroku_21cnp0sm']
+db.my_collection.find()
+
+APP_STAGE = os.environ['APP_STAGE']
 
 @app.route('/')
 def index():
