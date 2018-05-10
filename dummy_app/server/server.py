@@ -1,8 +1,7 @@
 from flask import Flask, render_template, request, jsonify
 import os
-from flask_pymongo import PyMongo
 from bson.json_util import dumps
-from pymongo import MongoClient
+from pydb import MongoClient
 
 
 # static folder contains the js/css/img files to be distributed to client
@@ -10,11 +9,11 @@ from pymongo import MongoClient
 app = Flask(__name__, static_folder='../static/dist', template_folder='../static')
 
 #app.config["MONGO_DBNAME"] = "tsatetota_db"
-mongo = PyMongo(app, config_prefix='MONGO')
+#db = PyMongo(app, config_prefix='MONGO')
 #APP_URL = "http:#127.0.0.1:5000"
 uri = os.environ.get('MONGODB_URI')
 #if not uri:
-#    MONGO_URL = "mongodb:#localhost:27017/rest";
+#    MONGO_URL = "dbdb:#localhost:27017/rest";
 client = MongoClient(uri)
 db = client['heroku_21cnp0sm']
 
@@ -32,12 +31,12 @@ def data():
 
 @app.route('/citations', methods=['GET'])
 def get_all_citations():
-    return dumps(mongo.db.citations.find())
+    return dumps(db.db.citations.find())
 
 @app.route('/occasions/<occasion>/citations', methods=['GET'])
 def get_citations_for_tag(occasion):
     print(occasion)
-    citation = mongo.db.citations.find({'ארועים': {'ארועים':{'$regex':'.*'+occasion + '.*'}}})
+    citation = db.citations.find({'ארועים': {'ארועים':{'$regex':'.*'+occasion + '.*'}}})
     output = []
     for c in citation:
         print(c)
