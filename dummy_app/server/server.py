@@ -15,7 +15,8 @@ uri = os.environ.get('MONGODB_URI')
 #if not uri:
 #    MONGO_URL = "dbdb:#localhost:27017/rest";
 client = MongoClient(uri)
-db = client['heroku_21cnp0sm']
+#db = client['heroku_21cnp0sm']
+db = client.get_default_database()
 
 APP_STAGE = os.environ['APP_STAGE']
 
@@ -31,7 +32,7 @@ def data():
 
 @app.route('/citations', methods=['GET'])
 def get_all_citations():
-    return dumps(db.db.citations.find())
+    return dumps(db.citations.find())
 
 @app.route('/occasions/<occasion>/citations', methods=['GET'])
 def get_citations_for_tag(occasion):
