@@ -4,7 +4,7 @@ import pymongo
 from pymongo import MongoClient
 
 uri = os.environ.get('MONGO_URI')
-client = pymongo.MongoClient(uri)
+client = MongoClient(uri)
 db = client.get_default_database()
 
 APP_STAGE = os.environ['APP_STAGE']
