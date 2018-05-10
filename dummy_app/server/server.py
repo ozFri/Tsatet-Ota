@@ -38,11 +38,7 @@ def get_all_citations():
 def get_citations_for_tag(occasion):
     print(occasion)
     citation = db.citations.find({'ארועים': {'ארועים':{'$regex':'.*'+occasion + '.*'}}})
-    output = []
-    for c in citation:
-        print(c)
-        output.append(c)
-    return jsonify({'response': citation.count()})
+    return jsonify(dumps(citation)
 
 
 if __name__ == '__main__':
