@@ -14,9 +14,9 @@ class App extends Component {
 		super(props);
 
 		this.state = {
-			result: null
+			result: null,
+            suggestions : ""
 		}
-        this.suggestions = "";
 
 		this.tagState = {
 			nesia: 0,
@@ -41,7 +41,7 @@ class App extends Component {
 		const url = 'https://tsatet-ota.herokuapp.com/occasions/'+selected+'/citations';
         var that = this;
 		fetch(url).then(data => data.json())
-			.then(res => {this.suggestions = res;})
+			.then(res => {this.setState({suggestions : res}})
 			.catch(e => console.log(e));
 	}
 
@@ -198,7 +198,7 @@ class App extends Component {
 					</button>
 				</Row>
 				<Row>
-                    { this.suggestions }
+                    { this.state.suggestions }
 				</Row>
 			</Grid>
 		);
