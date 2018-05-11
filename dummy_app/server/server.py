@@ -66,7 +66,7 @@ def get_citations_for_occasion(occasions):
     for c in citation:
         print(c)
         output.append(c)
-    return JSONEncoder.encode(output)
+    return output.JSONEncoder.encode()
 
 @app.route('/emotions/<list:emotions>/citations', methods=['GET'])
 def get_citations_for_emotion(emotions):
