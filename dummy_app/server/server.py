@@ -1,3 +1,5 @@
+# coding: utf-8
+
 from flask import Flask, render_template, request, jsonify
 import os
 from flask_pymongo import PyMongo
@@ -50,3 +52,4 @@ if __name__ == '__main__':
     app.debug = APP_STAGE == "Development"
     port = int(os.environ.get('PORT', 5000))
     app.run(host='0.0.0.0', port=port)
+
