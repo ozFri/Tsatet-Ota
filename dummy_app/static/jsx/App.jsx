@@ -41,7 +41,7 @@ class App extends Component {
 		const url = 'https://tsatet-ota.herokuapp.com/occasions/'+selected+'/citations';
         var that = this;
 		fetch(url).then(data => data.json())
-			.then(res => {this.setState({suggestions : res}})
+			.then(res => {this.setState({suggestions : res})
 			.catch(e => console.log(e));
 	}
 
