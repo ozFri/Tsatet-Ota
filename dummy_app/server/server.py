@@ -16,7 +16,7 @@ uri = os.environ.get('MONGODB_URI')
 #    MONGO_URL = "dbdb:#localhost:27017/rest";
 client = MongoClient(uri)
 #db = client['heroku_21cnp0sm']
-db = client.get_default_database()
+db = client['heroku_21cnp0sm']
 
 APP_STAGE = os.environ['APP_STAGE']
 
@@ -38,7 +38,11 @@ def get_all_citations():
 def get_citations_for_tag(occasion):
     print(occasion)
     citation = db.citations.find({'ארועים': {'ארועים':{'$regex':'.*'+occasion + '.*'}}})
-    return jsonify(dumps(citation)
+    output = []
+    for c in citation:
+        print(c)
+        output.append(c)
+    return dumps(citation)
 
 
 if __name__ == '__main__':
