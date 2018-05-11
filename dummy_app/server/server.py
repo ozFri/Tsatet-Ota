@@ -76,7 +76,7 @@ def get_citations_for_emotion(emotions):
     for c in citation:
         print(c)
         output.append(c)
-    return JSONEncoder.encode(output)
+    return JSONEncoder.encode(dumps(output))
 
 @app.route('/themes/<list:themes>/citations', methods=['GET'])
 def get_citations_for_theme(themes):
