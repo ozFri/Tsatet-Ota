@@ -36,8 +36,7 @@ def get_all_citations():
 
 @app.route('/occasions/<occasion>/citations', methods=['GET'])
 def get_citations_for_tag(occasion):
-    print(occasion)
-    citation = db.citations.find({'ארועים': {'ארועים':{'$regex':'.*'+occasion + '.*'}}})
+    citation = db.citations.find({'ארועים': {'ארועים':{'$regex':'.*%d.*'}}}) % occasion
     output = []
     for c in citation:
         print(c)
