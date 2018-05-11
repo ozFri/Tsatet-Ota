@@ -3,6 +3,7 @@
 from flask import Flask, render_template, request, jsonify
 import os
 from bson.json_util import dumps
+from werkzeug.routing import BaseConverter
 from pymongo import MongoClient
 
 
@@ -22,6 +23,16 @@ db = client['heroku_21cnp0sm']
 
 APP_STAGE = os.environ['APP_STAGE']
 
+class ListConverter(BaseConverter):
+
+    def to_python(self, value):
+        return value.split('+')
+
+    def to_url(self, values):
+        return '+'.join(BaseConverter.to_url(value)
+                        for value in values)
+app.url_map.converters['list'] = ListConverter
+
 @app.route('/')
 def index():
     return render_template('index.html', pyvar='hello', server=APP_STAGE)
@@ -36,9 +47,30 @@ def data():
 def get_all_citations():
     return dumps(db.citations.find())
 
-@app.route('/occasions/<occasion>/citations', methods=['GET'])
-def get_citations_for_tag(occasion):
-    citation = db.citations.find({'ארועים': {'$regex':'.*'+occasion + '.*'}})
+@app.route('/occasions/<list:occasions>/citations', methods=['GET'])
+def get_citations_for_occasion(occasion):
+    occasionsStr = '|'.join('.*{0}.*'.format(e) for e in emotions)
+    citation = db.citations.find({'תמות': {'$regex':occasionStr}})
+    output = []
+    for c in citation:
+        print(c)
+        output.append(c)
+    return dumps(output)
+
+@app.route('/emotions/<list:emotions>/citations', methods=['GET'])
+def get_citations_for_emotion(emotion):
+    emotionsStr = '|'.join('.*{0}.*'.format(e) for e in emotions)
+    citation = db.citations.find({'תמות': {'$regex':emotionStr}})
+    output = []
+    for c in citation:
+        print(c)
+        output.append(c)
+    return dumps(output)
+
+@app.route('/themes/<list:themes>/citations', methods=['GET'])
+def get_citations_for_theme(theme):
+    themesStr = '|'.join('.*{0}.*'.format(e) for e in themes)
+    citation = db.citations.find({'תמות': {'$regex':themeStr}})
     output = []
     for c in citation:
         print(c)
