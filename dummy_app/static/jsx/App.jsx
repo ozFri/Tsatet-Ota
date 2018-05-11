@@ -36,14 +36,15 @@ class App extends Component {
 		this.fetch_data = this.fetch_data.bind(this);
 	}
 
-	fetch_data() {
-		const url = 'https://api.punkapi.com/v2/beers/random';
+	fetch_data(selected="חתונה") {
+		const url = 'https://tsatet-ota.herokuapp.com/occasions/'+selected+'/citations';
 		fetch(url).then(data => data.json())
-			.then(res => this.setState({result: res[0].name}))
+			//.then(res => this.setState({result: res[0].name}))
 			.catch(e => console.log(e));
 	}
 
 	searchMainClick() {
+        this.fetch_data;
 	}
 
 
@@ -142,17 +143,17 @@ class App extends Component {
 
 		return (
 			<Grid fluid>
-				<Row>
-					<div className="text-center">
+				<Row className="justify-content-center">
+					<div className="center-block text-center">
 						<h1>צטט אותה</h1>
 						<hr className="header_hr"/>
 					</div>
 				</Row>
-				<Row>
+				<Row className="justify-content-center">
 					<input type="text"></input>
 					<MainSearchButton
 						className="btn btn-info"
-						onClick={this.searchMainClick}>
+						onClick={this.fetch_data}>
 						רגש אותי</MainSearchButton>
 				</Row>
 				<Row>
