@@ -41,7 +41,7 @@ def get_citations_for_tag(occasion):
     for c in citation:
         print(c)
         output.append(c)
-    return dumps(citation)
+    return dumps(output)
 
 
 if __name__ == '__main__':
