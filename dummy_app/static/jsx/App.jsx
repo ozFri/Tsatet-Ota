@@ -16,6 +16,7 @@ class App extends Component {
 		this.state = {
 			result: null
 		}
+        this.suggestions = "";
 
 		this.tagState = {
 			nesia: 0,
@@ -38,9 +39,7 @@ class App extends Component {
 
 	fetch_data(selected="חתונה") {
 		const url = 'https://tsatet-ota.herokuapp.com/occasions/'+selected+'/citations';
-		fetch(url).then(function (data) {
-            document.getElementById("suggestions").innerHTML(data.json());
-            })
+		fetch(url).then(function(data){this.suggestions = data.json()})
 			//.then(res => this.setState({result: res[0].name}))
 			.catch(e => console.log(e));
 	}
@@ -197,7 +196,8 @@ class App extends Component {
 					<button type="button" className="col-md-2 btn btn-outline-primary" onClick={this.onJob}>תפקיד חדש
 					</button>
 				</Row>
-				<Row id="suggestions">
+				<Row>
+                    { this.suggestions }
 				</Row>
 			</Grid>
 		);
