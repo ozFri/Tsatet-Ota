@@ -55,7 +55,10 @@ def data():
 
 @app.route('/citations', methods=['GET'])
 def get_all_citations():
-    return JSONEncoder.encode(db.citations.find())
+    for c in citation:
+        print(c)
+        output.append({'quote':c['ציטוט'],'source':c['מקור']})
+    return jsonify({'result' : output})
 
 @app.route('/occasions/<list:occasions>/citations', methods=['GET'])
 def get_citations_for_occasion(occasions):
@@ -65,8 +68,8 @@ def get_citations_for_occasion(occasions):
     output = []
     for c in citation:
         print(c)
-        output.append(c)
-    return output.JSONEncoder.encode()
+        output.append({'quote':c['ציטוט'],'source':c['מקור'],'ocassions':c['ארועים']})
+    return jsonify({'result' : output})
 
 @app.route('/emotions/<list:emotions>/citations', methods=['GET'])
 def get_citations_for_emotion(emotions):
@@ -75,8 +78,8 @@ def get_citations_for_emotion(emotions):
     output = []
     for c in citation:
         print(c)
-        output.append(c)
-    return JSONEncoder.encode(dumps(output))
+        output.append({'quote':c['ציטוט'],'source':c['מקור'],'emotions':c['רגשות']})
+    return jsonify({'result' : output})
 
 @app.route('/themes/<list:themes>/citations', methods=['GET'])
 def get_citations_for_theme(themes):
@@ -85,8 +88,8 @@ def get_citations_for_theme(themes):
     output = []
     for c in citation:
         print(c)
-        output.append(c)
-    return Response(JSONEncoder.encode(output))
+        output.append({'quote':c['ציטוט'],'source':c['מקור'],'themes':c['תמות']})
+    return jsonify({'result' : output})
 
 
 if __name__ == '__main__':
