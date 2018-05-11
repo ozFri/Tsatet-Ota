@@ -56,7 +56,7 @@ def get_citations_for_occasion(occasions):
     for c in citation:
         print(c)
         output.append(c)
-    return dumps(output)
+    return jsonify(dumps(output))
 
 @app.route('/emotions/<list:emotions>/citations', methods=['GET'])
 def get_citations_for_emotion(emotions):
@@ -66,7 +66,7 @@ def get_citations_for_emotion(emotions):
     for c in citation:
         print(c)
         output.append(c)
-    return dumps(output)
+    return jsonify(dumps(output))
 
 @app.route('/themes/<list:themes>/citations', methods=['GET'])
 def get_citations_for_theme(themes):
@@ -76,7 +76,7 @@ def get_citations_for_theme(themes):
     for c in citation:
         print(c)
         output.append(c)
-    return dumps(output)
+    return jsonify(dumps(output))
 
 
 if __name__ == '__main__':
