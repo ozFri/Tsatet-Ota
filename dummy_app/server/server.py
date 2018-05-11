@@ -1,6 +1,8 @@
 # coding: utf-8
 
 from flask import Flask, render_template, request, jsonify
+import json
+from bson import ObjectId
 import os
 from bson.json_util import dumps
 from werkzeug.routing import BaseConverter
@@ -33,6 +35,14 @@ class ListConverter(BaseConverter):
                         for value in values)
 app.url_map.converters['list'] = ListConverter
 
+
+class JSONEncoder(json.JSONEncoder):
+    def default(self, o):
+        if isinstance(o, ObjectId):
+            return str(o)
+        return json.JSONEncoder.default(self, o)
+
+
 @app.route('/')
 def index():
     return render_template('index.html', pyvar='hello', server=APP_STAGE)
@@ -45,7 +55,7 @@ def data():
 
 @app.route('/citations', methods=['GET'])
 def get_all_citations():
-    return dumps(db.citations.find())
+    return JSONEncoder.encode(db.citations.find())
 
 @app.route('/occasions/<list:occasions>/citations', methods=['GET'])
 def get_citations_for_occasion(occasions):
@@ -56,7 +66,7 @@ def get_citations_for_occasion(occasions):
     for c in citation:
         print(c)
         output.append(c)
-    return jsonify(output)
+    return JSONEncoder.encode(output)
 
 @app.route('/emotions/<list:emotions>/citations', methods=['GET'])
 def get_citations_for_emotion(emotions):
@@ -66,7 +76,7 @@ def get_citations_for_emotion(emotions):
     for c in citation:
         print(c)
         output.append(c)
-    return jsonify(output)
+    return JSONEncoder.encode(output)
 
 @app.route('/themes/<list:themes>/citations', methods=['GET'])
 def get_citations_for_theme(themes):
@@ -76,7 +86,7 @@ def get_citations_for_theme(themes):
     for c in citation:
         print(c)
         output.append(c)
-    return jsonify(output)
+    return Response(JSONEncoder.encode(output))
 
 
 if __name__ == '__main__':
