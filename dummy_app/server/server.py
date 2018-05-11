@@ -48,7 +48,7 @@ def get_all_citations():
     return dumps(db.citations.find())
 
 @app.route('/occasions/<list:occasions>/citations', methods=['GET'])
-def get_citations_for_occasion(occasion):
+def get_citations_for_occasion(occasions):
     occasionsStr = '|'.join('.*{0}.*'.format(e) for e in emotions)
     citation = db.citations.find({'תמות': {'$regex':occasionStr}})
     output = []
@@ -58,7 +58,7 @@ def get_citations_for_occasion(occasion):
     return dumps(output)
 
 @app.route('/emotions/<list:emotions>/citations', methods=['GET'])
-def get_citations_for_emotion(emotion):
+def get_citations_for_emotion(emotions):
     emotionsStr = '|'.join('.*{0}.*'.format(e) for e in emotions)
     citation = db.citations.find({'תמות': {'$regex':emotionStr}})
     output = []
@@ -68,7 +68,7 @@ def get_citations_for_emotion(emotion):
     return dumps(output)
 
 @app.route('/themes/<list:themes>/citations', methods=['GET'])
-def get_citations_for_theme(theme):
+def get_citations_for_theme(themes):
     themesStr = '|'.join('.*{0}.*'.format(e) for e in themes)
     citation = db.citations.find({'תמות': {'$regex':themeStr}})
     output = []
