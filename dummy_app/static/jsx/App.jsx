@@ -39,8 +39,9 @@ class App extends Component {
 
 	fetch_data(selected="חתונה") {
 		const url = 'https://tsatet-ota.herokuapp.com/occasions/'+selected+'/citations';
-		fetch(url).then(function(data){this.suggestions = data.json()})
-			//.then(res => this.setState({result: res[0].name}))
+        var that = this;
+		fetch(url).then(function(data){data.json()})
+			.then(res => this.suggestions = res;)
 			.catch(e => console.log(e));
 	}
 
